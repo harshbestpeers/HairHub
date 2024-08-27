@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider Sign Up Form</title>
+    <link rel="stylesheet" href="{% static 'contact/css/signup.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Provider Sign Up Form</h2>
+            <p>Your provider support center to find clients and maintain their administration.</p>
+            <form method="post">
+                {% csrf_token %}
+                <label for="title">Title</label>
+                {{ form.title }}
+
+                <!-- <label for="first_name">First Name</label> -->
+                {{ form.first_name }}
+
+                <!-- <label for="middle_name">Middle Name</label> -->
+                {{ form.middle_name }}
+
+                <!-- <label for="last_name">Last Name</label> -->
+                {{ form.last_name }}
+
+                <label for="specialty">Select specialty</label>
+                {{ form.specialty }}
+
+                <label for="email">Email</label>
+                {{ form.email }}
+
+                <label for="phone_number">Phone Number</label>
+                {{ form.phone_number }}
+
+                <label for="password">Password</label>
+                {{ form.password }}
+
+                <label for="confirm_password">Re-enter Password</label>
+                {{ form.confirm_password }}
+
+                <div class="buttons">
+                    <button type="button" class="back-btn">Back</button>
+                    <button type="submit" class="signup-btn">Sign Up</button>
+                </div>
+            </form>
+        </div>
+        <div class="image-container">
+            <img src="{% static 'image/signup.jpg' %}" alt="Doctor viewing X-ray">
+        </div>
+    </div>
+</body>
+</html>

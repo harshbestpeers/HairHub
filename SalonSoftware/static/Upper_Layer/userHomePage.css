@@ -1,0 +1,94 @@
+.background-section {
+    background: url("/static/images/user.jpg") no-repeat center center;
+    background-size: cover; 
+    background-attachment: fixed; 
+    height: 100vh; 
+    width: 100vw; 
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+
+/* Transparent navbar styling */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Black background with 70% opacity */
+    color: white;
+    padding: 15px 40px; /* Adjusted padding for better height */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Navbar brand styling */
+.navbar-brand a {
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+/* Navbar links styling */
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 30px; /* Increase spacing between links */
+    font-size: 18px; /* Increase font size */
+    font-weight: normal;
+    line-height: 1.5;
+}
+
+.navbar-links a:hover {
+    text-decoration: underline;
+}
+
+/* Content styling */
+.content {
+    text-align: center;
+    color: white;
+    margin-top: 180px; /* Increase margin to avoid overlap with navbar */
+}
+
+.content h1 {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.search-bar {
+    margin-top: 20px;
+}
+
+.search-bar input {
+    width: 50%; /* Adjusted width for a more centered look */
+    padding: 12px; /* Slightly larger padding for better UX */
+    font-size: 18px;
+    border-radius: 25px;
+    border: none;
+    text-align: center;
+}
+
+/* Additional responsive styling */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 10px 20px;
+    }
+    .navbar-brand a {
+        margin-bottom: 10px;
+    }
+    .navbar-links a {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+    .search-bar input {
+        width: 80%;
+    }
+}
+
+
