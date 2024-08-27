@@ -8,25 +8,63 @@
     <link rel="stylesheet" href="{% static 'Upper_Layer/userHomePage.css' %}">
 </head>
 <body>
-    <div class="background-section" >
+    <div class="background-section">
         <!-- Content for the section with background image -->
         <nav class="navbar">
             <div class="navbar-brand">
-                <a href="#">zomato</a>
+                <a href="#">HairHub</a>
             </div>
             <div class="navbar-links">
                 <a href="#">Investor Relations</a>
-                <a href="#">Add restaurant</a>
+                <a href="#">Add Salon</a>
+                {% if user.is_authenticated %}
+                    <a id="openModal">Profile</a>
+                {% else %}
+                    <a href="#">Login</a>
+                    <a href="#">Signup</a>
+                {% endif %}
             </div>
         </nav>
-
-        <div class="content">
-            <h1>Discover the best food & drinks in Raipur</h1>
+        <div class="container">
+            <h1>Discover the best Salon </h1>
             <div class="search-bar">
-                <input type="text" placeholder="Search for restaurant, cuisine or a dish">
+                <input type="text" placeholder="Search for best Salon">
             </div>
         </div>
-
     </div>
+        <div class="content">
+            
+            <div class="cards-container">
+                <a href="@" class="card">
+                    <img src="{% static 'images/mens_salon.jpg' %}" alt="Card 1">
+                    <div class="card-title">men salon</div>
+                </a>
+                <div class="card">
+                    <img src="{% static 'images/women_salon.jpeg' %}" alt="Card 2">
+                    <div class="card-title">women salon</div>
+                </div>
+                <div class="card">
+                    <img src="{% static 'images/unisex.jpeg' %}" alt="Card 3">
+                    <div class="card-title">unisex salon</div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- Profile The Modal -->
+
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Profile</h2>
+            <h2>notification</h2>
+            <h2>reviews</h2>
+            <h2>setting</h2>
+            <h2>logout</h2>
+        </div>
+    </div>
+
+
+
+    <script src="{% static 'Upper_Layer/js/userHomePage.js' %}"></script>
 </body>
 </html>
