@@ -7,11 +7,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
-@login_required
 def UserHomePage(request):
     return render(request, 'Upper_layer/userHomePage.html')
     
-# class UserHomePage(View):
-#     def get(self, request):
-#         return render(request, 'Upper_layer/userHomePage.html')
-
+class Salon(View):
+    def get(self, request):
+        return render(request, 'Upper_layer/salon.html')

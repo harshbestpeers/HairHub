@@ -9,7 +9,7 @@ body, html {
 .background-section {
     margin: 0;
     padding: 0;
-    background: url("/static/images/user.jpg") no-repeat center center;
+    background: url("/static/images/mens_salon.jpg") no-repeat center center;
     background-size: cover; 
     background-attachment: fixed; 
     height: 50vh; 
@@ -27,7 +27,7 @@ body, html {
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; /* Align items vertically in the center */
     z-index: 1000;
     box-sizing: border-box;
 }
@@ -38,6 +38,12 @@ body, html {
     font-weight: bold;
     color: white;
     text-decoration: none;
+}
+
+/* Navbar links container */
+.navbar-links {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
 }
 
 /* Navbar links styling */
@@ -51,12 +57,90 @@ body, html {
 }
 
 .navbar-links a:hover {
-    text-decoration: underline;
+    text-decoration: none;
+}
+
+/* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown button */
+.dropbtn {
+    background-color: transparent; 
+    color: rgb(245, 241, 241);
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Profile picture */
+.profile-pic {
+    width: 30px;  /* Set the desired width */
+    height: 30px; /* Set the desired height */
+    border-radius: 50%; /* To make it a circle */
+    object-fit: cover; 
+    margin-right: 10px;
+    margin-left: 20px;
+
+}
+
+/* Dropdown content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1;
+    padding: 0; 
+    margin: 0;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    text-decoration: none;
+    color: black;
+    padding: 12px 10px;
+    text-decoration: none;
+    display: block;
+    width: 100%; 
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    /* padding: 0;  */
+    /* margin: 0; */
+    text-decoration: none;
+
+    background-color: #f1f1f1;
+    width: 100%;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+    margin: 0;
+    width: 100%;
+}
+
+/* Rotate arrow when dropdown is open */
+.dropdown:hover .dropbtn span {
+    transform: rotate(180deg);
 }
 
 /* Centered content container */
 .container {
     text-align: center;
+    padding-top: 30px;
 }
 
 .container h1 {
@@ -118,43 +202,3 @@ body, html {
     color: #333;
 }
 
-/* Profile modal styling */
-#openModal {
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    right: 1%;
-    top: 10%;
-    width: 150px;
-    background-color: rgba(0, 0, 0, 0.4);
-    height: 40%;
-}
-
-.modal-content {
-    background-color: #b4aaaa;
-    padding: 20px;
-    border: 1px solid #888;
-    border-radius: 10px;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}

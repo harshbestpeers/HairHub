@@ -1,0 +1,40 @@
+<nav class="navbar">
+    <div class="navbar-container">
+        <!-- App Name on the Left -->
+        <div class="navbar-left">
+            <a href="#" class="app-name">AppName</a>
+        </div>
+
+        <!-- Search Bar in the Middle -->
+        <div class="navbar-middle">
+            <input type="text" class="search-bar" placeholder="Search...">
+        </div>
+
+        <!-- Login and Signup on the Right -->
+        {% if user.is_authenticated %}
+        <div class="navbar-right">
+            <div class="dropdown">
+                <button class="dropbtn">
+                    <img src="/static/images/user.jpg" alt="Profile Picture" class="profile-pic"> {{user.username}}
+                    <span>&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Profile</a>
+                    <a href="#">Notifications</a>
+                    <a href="#">Bookmarks</a>
+                    <a href="#">Reviews</a>
+                    <a href="#">Network</a>
+                    <a href="#">Find friends</a>
+                    <a href="#">Settings</a>
+                    <a href="{% url 'logout' %}">Log out</a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="navbar-right">
+            <a href="{% url 'login' %}" class="login-button">Login</a>
+            <a href="{% url 'signup' %}" class="signup-button">Sign Up</a>
+        </div>
+        {% endif %}
+    </div>
+</nav>

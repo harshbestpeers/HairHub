@@ -32,6 +32,7 @@ class Contact(models.Model):
     contact_type = models.CharField(max_length = 30, choices = CONTACT_TYPE_CHOICES, default = 'client', verbose_name = ('Contact Type'))
     
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, verbose_name=('User'))
+    Address = models.ForeignKey('contact.Address', on_delete=models.CASCADE, null=True, blank=True, verbose_name=('Address'))
 
     def __str__(self):
         value = ''
@@ -60,8 +61,6 @@ class Address (models.Model):
     state = models.CharField(max_length = 30, verbose_name = ('State'))
     country = models.CharField(max_length = 30, verbose_name = ('Country'))
 
-    """ relationship """
-    contact = models.ForeignKey(Contact, on_delete=models.CASCADE, null=True,blank=True, verbose_name=('Contact'))
 
     def get_full_address(self):
         return '%s, %s, %s, %s, %s, %s' %(self.number, self.street, self.city, self.state, self.postal_code, self.country)

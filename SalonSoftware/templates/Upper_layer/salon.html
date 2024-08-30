@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>salon Page</title>
+    <link rel="stylesheet" href="{% static 'Upper_Layer/css/salon.css' %}">
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <!-- App Name on the Left -->
+            <div class="navbar-left">
+                <a href="#" class="app-name">HairHub</a>
+            </div>
+            <!-- Search Bar in the Middle -->
+            <div class="navbar-middle">
+                <input type="text" class="search-bar" placeholder="Search...">
+            </div>
+            <!-- Login and Signup on the Right -->
+            {% if user.is_authenticated %}
+            <div class="dropdown">
+                <button class="dropbtn">
+                    <img src="/static/images/user.jpg" alt="icon-pic" class="profile-pic"> {{user.username}}
+                    <span>&#9660;</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Profile</a>
+                    <a href="#">Notifications</a>
+                    <a href="#">Bookmarks</a>
+                    <a href="#">Reviews</a>
+                    <a href="#">Network</a>
+                    <a href="#">Find friends</a>
+                    <a href="#">Settings</a>
+                    <a href="{% url 'logout' %}">Log out</a>
+                </div>
+            </div>
+            {% else %}
+            <div class="navbar-right">
+                <a href="{% url 'login' %}" class="login-button">Login</a>
+                <a href="{% url 'signup' %}" class="signup-button">Sign Up</a>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="iconbar">
+        <div class="iconbar-content">
+            <button class="iconbtn" data-category="salon">
+                <img src="/static/images/user.jpg" alt="icon-pic" class="icon-pic">
+                <p>SALON</p>
+            </button>
+            <button class="iconbtn" id="openModal" data-category="product">
+                <img src="/static/images/user.jpg" alt="icon-pic" class="icon-pic">
+                <p>PRODUCT</p>
+            </button>
+            <button class="iconbtn" id="openModal" data-category="other">
+                <img src="/static/images/user.jpg" alt="icon-pic" class="icon-pic">
+                <p>OTHER</p>
+            </button>
+        </div>
+    </div>
+
+    <h1 style="margin: 2%;">Top Rated Salons</h1>
+    <div id="container"></div>
+
+
+    <!-- The Modal for salon-->
+        <div class="nested-Modal" id="nestedModal">
+            <div class="nestedModal-content">
+                <span class="close">oi</span>
+                <h2>Salon Details</h2>
+                <p>Some content for the salon modal.</p>
+            </div>
+        </div>
+
+
+
+    <script src="{% static 'Upper_Layer/js/salon.js' %}"></script>
+    <script src="{% static 'Upper_Layer/js/salon_modal.js' %}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+</body>
+
+</html>

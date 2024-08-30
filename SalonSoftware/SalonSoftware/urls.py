@@ -24,7 +24,8 @@ from contact import views as contact_view
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("contact/", include("contact.urls")),  # create url for contact app
-    path("Upper_layer/", include("Upper_layer.urls")),  # create url for Upper_layer app
+    path("organization/", include("Organization.urls")),  # create url for contact app
+    path("", include("Upper_layer.urls")),  # create url for Upper_layer app
     path('login/', contact_view.login_view, name='login'),
     path('logout/', contact_view.logout_view, name='logout'),
     path('signup/', contact_view.signup, name='signup'),

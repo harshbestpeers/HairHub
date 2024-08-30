@@ -1,0 +1,261 @@
+/* Navbar Styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0.7); /* Black background with 70% opacity */
+    color: white;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    position:fixed;
+    width: 100%;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.navbar-left, .navbar-middle, .navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.app-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.search-bar {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 300px;
+}
+
+.navbar-right a {
+    text-decoration: none;
+    color: #007BFF;
+    margin-left: 15px;
+    font-size: 16px;
+}
+
+.navbar-right a:hover {
+    text-decoration: underline;
+}
+
+/* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown button */
+.dropbtn {
+    background-color: transparent; 
+    color: rgb(245, 241, 241);
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Profile picture */
+.profile-pic {
+    width: 30px;  /* Set the desired width */
+    height: 30px; /* Set the desired height */
+    border-radius: 50%; /* To make it a circle */
+    object-fit: cover; 
+    margin-right: 10px;
+    margin-left: 20px;
+
+}
+
+/* Dropdown content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1;
+    padding: 0; 
+    margin: 0;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    text-decoration: none;
+    color: black;
+    padding: 12px 10px;
+    text-decoration: none;
+    display: block;
+    width: 100%; 
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.dropdown-content a:hover {
+    /* padding: 0;  */
+    /* margin: 0; */
+    text-decoration: none;
+
+    background-color: #f1f1f1;
+    width: 100%;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+    margin: 0;
+    width: 100%;
+}
+
+/* Rotate arrow when dropdown is open */
+.dropdown:hover .dropbtn span {
+    transform: rotate(180deg);
+}
+
+/* iconbar */
+/* Container for buttons */
+.iconbar {
+    display: flex;
+    justify-content: center; /* Center buttons horizontally */
+    padding-top: 80px; /* Adjust padding as needed */
+    background-color: #f1f1f1;
+    padding-bottom: 20px;
+}
+
+.iconbar-content {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+/* Style for each button */
+.iconbtn {
+    display: flex;
+    align-items: center; /* Align image and text vertically */
+    border: 2px solid transparent; /* Default border */
+    background: none;
+    cursor: pointer;
+    padding: 5px 10px; /* Adjust padding as needed */
+    border-radius: 4px; /* Rounded corners for buttons */
+    transition: background-color 0.3s, border-color 0.3s; /* Smooth transition for background and border color */
+    font-size: 16px; 
+    font-weight: bold; 
+}
+
+/* Style for image inside buttons */
+.icon-pic {
+    width: 60px; /* Adjust width as needed */
+    height: 60px; /* Adjust height as needed */
+    margin-right: 8px; /* Space between image and text */
+    border-radius: 50%;
+}
+
+/* Hover effect */
+.iconbtn:hover {
+    background-color: #f0f0f0; /* Change background color on hover */
+    border-color: #007bff; /* Border color on hover */
+}
+
+/* Active state */
+.iconbtn.active {
+    background-color:transparent; /* Background color for active button */
+    color: black; /* Text color for active button */
+    border-color: #0056b3; /* Border color for active button */
+}
+
+
+
+.nested-Modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: transparent; /* Black background with opacity */
+    padding: 2px;
+}
+
+/* Modal Content */
+.nestedModal-content{
+    background-color: white;
+    margin:-1; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    margin-top: 11%;
+    width: 97.5%; /* Could be more or less, depending on screen size */
+    height: 100%;
+    border-radius: 5px;
+    position: relative;
+    overflow: auto;
+    animation: slide-up 0.5s forwards;
+
+}
+
+/* Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* card css */
+#container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    /* padding: 20px; */
+}
+
+/* Style for each card */
+.card {
+    background-color: #fff; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    overflow: hidden; 
+    text-align: center;
+    padding: 10px; 
+}
+
+/* Style for the image inside the card */
+.card img {
+    width: 100%; 
+    height: auto; 
+    border-bottom: 1px solid #ddd; 
+}
+
+/* Style for the title of the card */
+.card-title {
+    margin: 10px 0;
+    font-size: 18px; 
+    font-weight: bold; 
+}
