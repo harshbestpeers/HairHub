@@ -5,6 +5,7 @@ from .views import *
 
 router = DefaultRouter()
 router.register(r'salons', SalonViewSet, basename='salon')
+router.register(r'appointments', AppointmentViewSet, basename='appointment')
 
 urlpatterns = [
     path('api/', include(router.urls)),  # This should create '/api/salons/' endpoint

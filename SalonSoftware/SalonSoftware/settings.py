@@ -136,6 +136,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 
 
+APPEND_SLASH = False
 
 
 AUTH_PASSWORD_VALIDATORS = []
