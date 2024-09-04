@@ -18,7 +18,7 @@ class Salon(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="update at")
 
     contact = models.ForeignKey('contact.Contact', on_delete=models.CASCADE, related_name='contact_salons', verbose_name="contact")
-    
+    address = models.ForeignKey('contact.Address', on_delete=models.CASCADE, null=True, blank=True, related_name='address', verbose_name='address')
     def __str__(self):
         return self.name
     

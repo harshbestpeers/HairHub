@@ -49,18 +49,18 @@
         <div class="content">
             
             <div class="cards-container">
-                <a href="{% url 'salon' %}" class="card">
+                <a href="{% url 'salon' type='men' %}" class="card">
                     <img src="{% static 'images/mens_salon.jpg' %}" alt="Card 1">
                     <div class="card-title">men salon</div>
                 </a>
-                <div class="card">
+                <a href="{% url 'salon' type='women' %}" class="card">
                     <img src="{% static 'images/women_salon.jpeg' %}" alt="Card 2">
                     <div class="card-title">women salon</div>
-                </div>
-                <div class="card">
+                </a>
+                <a href="{% url 'salon' type='unisex' %}" class="card">
                     <img src="{% static 'images/unisex.jpeg' %}" alt="Card 3">
                     <div class="card-title">unisex salon</div>
-                </div>
+                </a>
             </div>
             </div>
         </div>

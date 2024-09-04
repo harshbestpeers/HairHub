@@ -23,12 +23,12 @@ class SalonServiceSerializer(serializers.ModelSerializer):
         fields = ['id', 'service_img', 'name', 'description', 'price']
 
 class SalonSerializer(serializers.ModelSerializer):
-    addresses = AddressSerializer(many=True)
+    address = AddressSerializer()
     contact = ContactSerializer()
     salonservice = SalonServiceSerializer(many=True)
     class Meta:
         model = Salon
-        fields = ['id', 'name', 'addresses', 'contact', 'salonservice']
+        fields = ['id', 'name', 'address', 'contact', 'salonservice']
 
 
 class AppointmentSerializer(serializers.ModelSerializer):

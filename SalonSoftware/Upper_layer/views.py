@@ -11,8 +11,8 @@ def UserHomePage(request):
 
 
 class SalonView(LoginRequiredMixin, View):
-    def get(self, request):
+    def get(self, request, type):
         return render(request, 'Upper_layer/salon.html', {
-        'user': request.user
+        'user': request.user, 'type':type
     })
 

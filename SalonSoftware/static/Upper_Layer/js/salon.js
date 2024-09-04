@@ -9,13 +9,14 @@ $(document).ready(function () {
     const $container = $('#container');
 
     $('.iconbtn').on('click', function () {
+        const type = $(this).data('type');
         const category = $(this).data('category');
-        fetchData(category);
+        fetchData(category, type);
         $container.empty();
     });
 
-    function fetchData(category) {
-        const apiUrl = `http://127.0.0.1:8000/organization/api/${category}s/`;
+    function fetchData(category,type) {
+        const apiUrl = `http://127.0.0.1:8000/organization/api/${category}s/?salon_type=${type}`;
 
         $.ajax({
             url: apiUrl,
@@ -66,7 +67,6 @@ function fetchSalonDetails(itemId) {
                         <ul class="navbar-nav">
                             <li class="nav-item"><a class="nav-link" href="#" onclick="overview(window.salonDetails)">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="#" onclick="service()">Service</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#" onclick="stylelist()">StyleList</a></li>
                             <li class="nav-item"><a class="nav-link" href="#" onclick="photo()">Photo</a></li>
                             <li class="nav-item"><a class="nav-link" href="#" onclick="contact(window.salonDetails)">Contact</a></li>
                             <li class="nav-item"><a class="nav-link" href="#" onclick="appointment()">Appointment</a></li>

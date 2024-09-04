@@ -61,7 +61,7 @@ class Address (models.Model):
     country = models.CharField(max_length = 30, verbose_name = ('Country'))
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, verbose_name=('User'))
-    salon = models.ForeignKey('Organization.Salon', on_delete=models.CASCADE, null=True, blank=True, related_name='addresses', verbose_name='Salon')
+    
 
 
     def get_full_address(self):

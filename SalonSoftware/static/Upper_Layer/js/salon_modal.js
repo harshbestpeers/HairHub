@@ -1,60 +1,27 @@
 function overview() {
     const $container = $('#modal-content');
+    overview_content();
     $container.html(`
 <div class="container mt-4">
     <!-- Salon Introduction -->
-    <section class="mb-5">
-        <h2 class="text-center mb-4">Welcome to ${salonDetails.name}</h2>
-        <p class="text-center">
+    <section class="mb-5 text-center">
+        <h2 class="display-4 mb-4">Welcome to ${salonDetails.name}</h2>
+        <p class="lead">
             Experience the best salon services in town! At ${salonDetails.name}, we provide top-notch beauty and hair care services with a team of expert professionals dedicated to making you look and feel your best.
         </p>
     </section>
 
     <!-- Salon Services Section -->
-    <div id="imageCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        {% for service in salonDetails.services %}
-            <li data-target="#imageCarousel" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
-        {% endfor %}
-    </ol>
-
-    <!-- Carousel Items -->
-    <div class="carousel-inner">
-        {% for service in salonDetails.services %}
-            {% if forloop.first or forloop.counter|divisibleby:3 %}
-            <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                <div class="row">
-            {% endif %}
-                    <div class="col-md-4">
-                        <img src="{{ service.service_img.url }}" class="d-block w-100" alt="{{ service.name }}">
-                        <div class="carousel-caption">
-                            <h5>{{ service.name }}</h5>
-                            <p>{{ service.description }}</p>
-                            <p>Price: {{ service.price }}</p>
-                        </div>
-                    </div>
-            {% if forloop.counter|divisibleby:3 or forloop.last %}
-                </div>
-            </div>
-            {% endif %}
-        {% endfor %}
-    </div>
-
-    <!-- Controls -->
-    <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
+    <section class="mb-5">
+        <h5 class="font-weight-bold mb-4">Salon Services</h5>
+        <div class="row service-section">
+            <!-- Dynamic content will be inserted here -->
+        </div>
+    </section>
 
     <!-- Opening Hours Section -->
     <section class="mb-5">
-        <h3 class="mb-4">Opening Hours</h3>
+        <h3 class="font-weight-bold mb-4">Opening Hours</h3>
         <table class="table table-bordered">
             <tbody>
                 <tr>
@@ -75,8 +42,8 @@ function overview() {
 
     <!-- Customer Reviews Section -->
     <section class="mb-5">
-        <h3 class="mb-4">Customer Reviews</h3>
-        <div id="reviews-carousel" class="carousel slide" data-ride="carousel">
+        <h3 class="font-weight-bold mb-4">Customer Reviews</h3>
+        <div id="reviews-carousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <blockquote class="blockquote text-center">
@@ -92,79 +59,149 @@ function overview() {
                 </div>
                 <!-- Add more customer reviews here -->
             </div>
-            <a class="carousel-control-prev" href="#reviews-carousel" role="button" data-slide="prev">
+            <a class="carousel-control-prev" href="#reviews-carousel" role="button" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
+                <span class="visually-hidden">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#reviews-carousel" role="button" data-slide="next">
+            <a class="carousel-control-next" href="#reviews-carousel" role="button" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
+                <span class="visually-hidden">Next</span>
             </a>
         </div>
     </section>
 
     <!-- Gallery Section -->
     <section class="mb-5">
-        <h3 class="mb-4">Our Gallery</h3>
+        <h3 class="font-weight-bold mb-4">Our Gallery</h3>
         <div class="row">
-            <!-- Gallery Image 1 -->
-            <div class="col-md-4 mb-4">
-                <img src="gallery1.jpg" class="img-fluid rounded" alt="Salon Interior">
-            </div>
-            <!-- Gallery Image 2 -->
-            <div class="col-md-4 mb-4">
-                <img src="gallery2.jpg" class="img-fluid rounded" alt="Salon Styling Area">
-            </div>
-            <!-- Gallery Image 3 -->
-            <div class="col-md-4 mb-4">
-                <img src="gallery3.jpg" class="img-fluid rounded" alt="Salon Products">
-            </div>
+            <!-- Dynamic content will be inserted here -->
         </div>
     </section>
 </div>
-
     `);
 }
+
+
+function overview_content() {
+    $.ajax({
+        url : `http://127.0.0.1:8000/organization/salonserviceslist/?salon=${salonDetails.id}`,
+        type: 'GET',
+        success: function(response) {
+            const service = response;
+            let carouselIndicators = '';
+            let carouselInner = '';
+
+            response.forEach((service, index) => {
+                // Add indicators
+
+                carouselIndicators += `
+                  <button type="button" data-bs-target="#serviceCarousel" data-bs-slide-to="${index}" 
+                          class="btn btn-dark ${index === 0 ? 'active' : ''}" aria-current="${index === 0 ? 'true' : ''}" aria-label="Slide ${index + 1}">
+                  </button>`;
+              
+                // Create carousel items
+                carouselInner += `
+                   <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                        <div class="card" style="width: 100%; margin: 0 auto;">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img src="${service.service_img}" class="img-fluid" alt="${service.name}" style="height: 200px; object-fit: cover;">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${service.name}</h5>
+                                        <p class="card-text">${service.description ? service.description : 'No description available.'}</p>
+                                        <p class="card-text"><strong>Price: $${service.price}</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> `
+
+
+            });
+
+            // Insert carousel into the HTML
+            $('.service-section').html(`
+                <div id="serviceCarousel" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-indicators">
+                    ${carouselIndicators}
+                  </div>
+                  <div class="carousel-inner">
+                    ${carouselInner}
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#serviceCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#serviceCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+            `);
+
+            // Re-initialize the carousel after dynamically adding the content
+            var myCarousel = new bootstrap.Carousel(document.getElementById('serviceCarousel'), {
+                interval: 2000,
+                wrap: true
+            });
+
+
+
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+            $('.service-section').html(`<p>Failed to load services. Please try again. Error: ${xhr.statusText}</p>`);
+        }
+    });
+}
+
+
 
 function service() {
     const $container = $('#modal-content');
-    $container.empty()
-    $container.html(`
-        <!-- Services Section -->
-        <section id="services" class="container mt-5">
-            <h2 class="text-center mb-4">Our Services</h2>
-            <div class="row">
-                <div class="col-md-4">
+    $container.empty(); // Clear existing content
+
+    $.ajax({
+        url: `http://127.0.0.1:8000/organization/salonserviceslist/?salon=${salonDetails.id}`,
+        type: 'GET',
+        success: function(response) {
+            // Assuming response is an array of service objects
+            const services = response; // or response.services if the data is nested
+
+            // Create HTML content for each service
+            let servicesHtml = services.map(service => `
+                <div class="col-md-4 mb-4">
                     <div class="card">
-                        <img src="haircut.jpg" class="card-img-top" alt="Haircut Service">
+                        <img src="${service.service_img}" class="card-img-top" alt="${service.name}" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
-                            <h5 class="card-title">Haircuts</h5>
-                            <p class="card-text">From classic to trendy, our stylists offer the best haircuts tailored to your preferences.</p>
+                            <h5 class="card-title">${service.name}</h5>
+                            <p class="card-text">${service.description ? service.description : 'No description available.'}</p>
+                            <p class="card-text"><strong>Price: $${service.price}</strong></p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="manicure.jpg" class="card-img-top" alt="Manicure Service">
-                        <div class="card-body">
-                            <h5 class="card-title">Manicures & Pedicures</h5>
-                            <p class="card-text">Pamper yourself with our luxurious manicure and pedicure treatments.</p>
-                        </div>
+            `).join('');
+
+            // Append the generated HTML to the container
+            $container.html(`
+                <div class="container mt-4">
+                    <div class="row">
+                        ${servicesHtml}
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="facial.jpg" class="card-img-top" alt="Facial Service">
-                        <div class="card-body">
-                            <h5 class="card-title">Facials</h5>
-                            <p class="card-text">Rejuvenate your skin with our customized facial treatments.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    `);
+            `);
+        },
+        error: function() {
+            // Handle errors here
+            $container.html('<p class="text-danger">Failed to load services. Please try again later.</p>');
+        }
+    });
 }
+
+
+
 
 function stylelist(){
     const $container = $('#modal-content');
@@ -194,10 +231,12 @@ function stylelist(){
 
 }
 
+
 function contact(salonDetails) {
     const $container = $('#modal-content');
     $container.empty()
     console.log(salonDetails)
+    console.log(salonDetails.address.id)
     $container.html(`
 <!-- Header Section -->
 <section class="contact-header">
@@ -254,9 +293,7 @@ function contact(salonDetails) {
         </div>
     </div>
 </section>
-
-
-    `);
+`);
 }
 
 
@@ -380,7 +417,7 @@ function fetchAppointmentData(salonDetails) {
     };
     
 
-console.log(username);
+    console.log(username);
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
     $.ajax({
