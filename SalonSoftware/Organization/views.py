@@ -1,10 +1,11 @@
 from rest_framework import viewsets
 from .models import Salon,Appointment,SalonService
-from .serializers import SalonSerializer,AppointmentSerializer, SalonServiceSerializer
+from contact.models import Contact
+from .serializers import SalonSerializer,AppointmentSerializer, SalonServiceSerializer,UserAppointmentSerializer
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.http import JsonResponse
-from rest_framework import generics
+from django.shortcuts import get_object_or_404
 
 
 # class SalonViewSet(viewsets.ModelViewSet):
@@ -16,14 +17,7 @@ class SalonViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Salon.objects.all()
 
     def get_queryset(self):
-        # Get the 'salon_type' parameter from the request
         salon_type = self.request.query_params.get('salon_type', None)
-        print(salon_type)
-        print(salon_type)
-        print(salon_type)
-        print(salon_type)
-        
-        # If 'salon_type' is provided, filter the queryset
         if salon_type:
             return Salon.objects.filter(salon_type=salon_type)
         return super().get_queryset()
@@ -48,3 +42,15 @@ class SalonServiceListView(View):
         
         serializer = SalonServiceSerializer(services, many=True)
         return JsonResponse(serializer.data, safe=False, json_dumps_params={'indent': 2})
+    
+class UserAppointmentView(View):
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return JsonResponse({'error': 'Unauthorized'}, status=401)
+        
+        contact = get_object_or_404(Contact, user=request.user)
+        appointments = contact.appointments.all()
+        serializer = UserAppointmentSerializer(appointments, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+        

@@ -35,3 +35,10 @@ class AppointmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appointment
         fields = '__all__'
+
+
+class UserAppointmentSerializer(serializers.ModelSerializer):
+    service = SalonServiceSerializer()
+    class Meta:
+        model = Appointment
+        fields = ['id','appointment_date', 'time', 'status', 'created_at', 'updated_at', 'customer', 'service', 'staff', 'salon']

@@ -73,6 +73,7 @@ class Appointment(models.Model):
         ('Canceled', 'Canceled'),
     ]
     appointment_date = models.DateField(blank=True, null=True)
+    time = models.TimeField(blank=True, null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Scheduled', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -84,9 +84,9 @@ function overview() {
 
 function overview_content() {
     $.ajax({
-        url : `http://127.0.0.1:8000/organization/salonserviceslist/?salon=${salonDetails.id}`,
+        url: `http://127.0.0.1:8000/organization/salonserviceslist/?salon=${salonDetails.id}`,
         type: 'GET',
-        success: function(response) {
+        success: function (response) {
             const service = response;
             let carouselIndicators = '';
             let carouselInner = '';
@@ -98,7 +98,7 @@ function overview_content() {
                   <button type="button" data-bs-target="#serviceCarousel" data-bs-slide-to="${index}" 
                           class="btn btn-dark ${index === 0 ? 'active' : ''}" aria-current="${index === 0 ? 'true' : ''}" aria-label="Slide ${index + 1}">
                   </button>`;
-              
+
                 // Create carousel items
                 carouselInner += `
                    <div class="carousel-item ${index === 0 ? 'active' : ''}">
@@ -150,7 +150,7 @@ function overview_content() {
 
 
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error('Error:', error);
             $('.service-section').html(`<p>Failed to load services. Please try again. Error: ${xhr.statusText}</p>`);
         }
@@ -166,7 +166,7 @@ function service() {
     $.ajax({
         url: `http://127.0.0.1:8000/organization/salonserviceslist/?salon=${salonDetails.id}`,
         type: 'GET',
-        success: function(response) {
+        success: function (response) {
             // Assuming response is an array of service objects
             const services = response; // or response.services if the data is nested
 
@@ -193,7 +193,7 @@ function service() {
                 </div>
             `);
         },
-        error: function() {
+        error: function () {
             // Handle errors here
             $container.html('<p class="text-danger">Failed to load services. Please try again later.</p>');
         }
@@ -203,7 +203,7 @@ function service() {
 
 
 
-function stylelist(){
+function stylelist() {
     const $container = $('#modal-content');
     $container.empty()
     $container.html(`
@@ -298,10 +298,9 @@ function contact(salonDetails) {
 
 
 function appointment() {
-    console.log(salonDetails)
     const $container = $('#modal-content');
     $container.empty(); // Clear any existing content
-
+// call function to dsplay previous appointment
     const services = salonDetails.salonservice || []; // Ensure this array exists in salonDetails
 
     // Convert services array to HTML options
@@ -310,7 +309,7 @@ function appointment() {
     $container.html(`
         <section id="appointment" class="container mt-5 mb-5 p-4 border rounded shadow-sm bg-light position-relative overflow-hidden">
             <!-- Background Image -->
-            <div class="position-absolute top-0 start-0 w-100 h-100 bg-image" style="background-image: url('your-image-url.jpg'); opacity: 0.2;"></div>
+            <div class="position-absolute top-0 start-0 w-100 h-100 bg-image" ></div>
             
             <h2 class="text-center mb-4 text-primary fw-bold">Book an Appointment</h2>
 
@@ -346,6 +345,14 @@ function appointment() {
                     </div>
                 </div>
             </div>
+
+            <!-- Previous Appointments -->
+            <div id="previousAppointments" class="mt-5">
+                <h3 class="text-center mb-4 text-primary fw-bold">Your Previous Appointments</h3>
+                <div id="appointmentsList" class="list-group">
+                    <!-- Appointments will be loaded here dynamically -->
+                </div>
+            </div>
         </section>
 
         <!-- Modal Structure -->
@@ -354,7 +361,7 @@ function appointment() {
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="appointmentModalLabel">Book an Appointment</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form>
@@ -384,20 +391,23 @@ function appointment() {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="submitAppointment">Submit</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="submitAppointment">Submit</button>
                     </div>
                 </div>
             </div>
         </div>
     `);
 
-    $('#service').on('change', function() {
+    date_time();
+    previous_appointment(); 
+
+    $('#service').on('change', function () {
         const selectedOption = $(this).find('option:selected');
         const price = selectedOption.data('price');
         $('#price').text(`$${price}`);
     });
 
-    $('#submitAppointment').on('click', function() {
+    $('#submitAppointment').on('click', function () {
         fetchAppointmentData(salonDetails);
     });
 }
@@ -409,13 +419,14 @@ function fetchAppointmentData(salonDetails) {
 
     const formData = {
         appointment_date: $('#appointmentDate').val(),
+        time: $('#appointmentTime').val(),
         status: 'Scheduled', // Default status
-        customer: username , // Assuming customer ID is from salonDetails
+        customer: username, // Assuming customer ID is from salonDetails
         service: $('#service').val(), // Pass the service ID; adjust based on your model
         staff: 1, // Set staff ID if available
         salon: salonDetails.id
     };
-    
+
 
     console.log(username);
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -427,15 +438,79 @@ function fetchAppointmentData(salonDetails) {
         headers: {
             'X-CSRFToken': csrfToken // Directly embed the CSRF token from Django template
         },
-        
+
         data: JSON.stringify(formData),
-        success: function(response) {
+        success: function (response) {
             console.log('Appointment created successfully', response);
             // Handle success (e.g., show a success message, redirect, etc.)
+
+            alert('Appointment booked successfully!');
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error('Error creating appointment:', error);
             // Handle error (e.g., show an error message)
+            alert('Error booking appointment. Please try again.');
+        }
+    });
+}
+
+
+function date_time() {
+    const dateInput = document.getElementById('appointmentDate');
+    const timeInput = document.getElementById('appointmentTime');
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+    dateInput.value = today;
+    console.log(dateInput)
+
+    const updateTimeConstraints = () => {
+        const selectedDate = dateInput.value;
+        const now = new Date();
+        let minTime = '00:00'; // Default minimum time
+
+        if (selectedDate === today) {
+            minTime = now.toTimeString().split(' ')[0].slice(0, 5);
+        }
+
+        timeInput.setAttribute('min', minTime);
+        if (selectedDate !== today) {
+            timeInput.removeAttribute('disabled');
+        } else if (timeInput.value < minTime) {
+            timeInput.value = minTime;
+        }
+    };
+
+    dateInput.addEventListener('change', updateTimeConstraints);
+    timeInput.addEventListener('change', updateTimeConstraints);
+    updateTimeConstraints();
+}
+
+
+function previous_appointment() {
+    const $list = $('#appointmentsList');
+    $list.empty(); // Clear any existing appointments
+
+    $.ajax({
+        url: 'http://127.0.0.1:8000/organization/user/appointments/', // Update with your API URL
+        method: 'GET',
+        success: function (data) {
+            console.log(data)
+            data.forEach(appointment => {
+                const appointmentItem = `
+                    <div class="list-group-item">
+                        <h5>Appointment ID: ${appointment.id}</h5>
+                        <p>Date: ${appointment.appointment_date}</p>
+                        <p>Time: ${appointment.time}</p>
+                        <p>Service: ${appointment.service.name}</p>
+                        <p>Status: ${appointment.status}</p>
+                    </div>
+                `;
+                $list.append(appointmentItem);
+            });
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching previous appointments:', error);
+            alert('Failed to load previous appointments.');
         }
     });
 }
