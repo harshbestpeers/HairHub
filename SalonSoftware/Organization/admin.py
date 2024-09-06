@@ -8,4 +8,3 @@ admin.site.register(SalonImage)
 admin.site.register(SalonReview)
 admin.site.register(Appointment)
 admin.site.register(SalonService)
-

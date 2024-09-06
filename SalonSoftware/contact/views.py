@@ -26,21 +26,21 @@ def login_view(request):
     if request.method == "POST":
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect("UserHomePage")  # Redirect to a profile or another page after login
+                return redirect(
+                    "UserHomePage"
+                )  # Redirect to a profile or another page after login
     else:
         form = AuthenticationForm()
     return render(request, "contact/login.html", {"form": form})
+
 
 # Logout view
 @login_required
 def logout_view(request):
     logout(request)
     return redirect("UserHomePage")  # Redirect to login page or home page after logout
-
-
-

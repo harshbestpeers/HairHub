@@ -97,3 +97,11 @@
 .modal {
     background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
 }
+.time-box {
+    cursor: pointer;
+}
+
+.time-box.selected {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+}

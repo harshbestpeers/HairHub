@@ -5,8 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-
 urlpatterns = [
     path("", UserHomePage, name="UserHomePage"),
-    path("salon/<str:type>/", SalonView.as_view(), name='salon'),
+    path("salon/<str:type>/", SalonView.as_view(), name="salon"),
 ]
