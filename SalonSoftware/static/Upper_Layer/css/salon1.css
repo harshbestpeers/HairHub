@@ -1,0 +1,78 @@
+/* Custom styles */
+.profile-pic {
+    width: 30px; 
+    height: 30px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    margin-right: 10px;
+}
+
+.icon-pic {
+    width: 60px; 
+    height: 60px; 
+    margin-right: 8px; 
+    border-radius: 50%;
+}
+
+.iconbtn.active {
+    background-color: transparent; 
+    color: black; 
+    border-color: #0056b3; 
+}
+
+
+
+.card-img-top {
+    height: 200px; 
+    object-fit: cover
+}
+
+
+.container-fluid.bg-light {
+    margin-top: 60px; 
+}
+
+
+.container-fluid.bg-light {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    z-index: 1020; /* Keeps the navbar on top */
+    background-color: #b2d5f8f5;
+    border-bottom: 2px solid #eee1e1;
+}
+.navbar-nav .nav-link {
+    padding: 10px 20px;
+    margin: 0 15px; 
+    font-size: 24px; 
+    color: #070707; 
+}
+
+.navbar-nav .nav-link:hover {
+    color: #0056b3;
+}
+
+
+#modal-content {
+    padding: 20px; 
+    background-color: #fff; 
+}
+
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+}
+.time-box {
+    cursor: pointer;
+}
+
+.time-box.selected {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+}

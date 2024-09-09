@@ -5,10 +5,12 @@ document.querySelectorAll('.iconbtn').forEach(button => {
     });
 });
 
+
+
 $(document).ready(function () {
     const $container = $('#container');
 
-    $('.iconbtn').on('click', function () {
+    $('.salon-type').on('click', function () {
         const type = $(this).data('type');
         const category = $(this).data('category');
         fetchData(category, type);

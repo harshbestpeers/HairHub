@@ -10,6 +10,7 @@ class Salon(models.Model):
         default="unisex",
         verbose_name=("Salon Type"),
     )
+    image = models.ImageField(upload_to="", blank=True, null=True)
     name = models.CharField(
         max_length=255, null=True, blank=True, verbose_name="salon name"
     )

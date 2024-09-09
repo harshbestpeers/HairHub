@@ -73,6 +73,7 @@ function appointment() {
                             <div class="col">
                                 <label for="time">Select Available Time</label>
                                 <select class="form-control" id="time">
+                                    <option value="">Select a service</option>
                                     <!-- Time options will be inserted here dynamically -->
                                 </select>
                             </div>
@@ -130,7 +131,10 @@ function date_time() {
         AvailableTime(selectedDate).then(availableTimes => {
 
             const timeOptions = availableTimes.map(time => `<option value="${time}">${time}</option>`).join('');
-            $('#time').html(timeOptions);
+            $('#time').html(`
+                <option value="">Select available time</option>
+                ${timeOptions}
+                `);
         }).catch(error => {
             console.error('Error fetching available times:', error);
         });

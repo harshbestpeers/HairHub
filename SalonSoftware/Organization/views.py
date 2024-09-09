@@ -126,4 +126,10 @@ class AvailableTime(APIView):
             if current_time not in booked_times:
                 available_times.append(current_time)
             current_time = (datetime.combine(datetime.min, current_time) + timedelta(hours=1)).time()
-        return JsonResponse({"available_times": [t.strftime("%H:%M") for t in available_times]}, status=status.HTTP_200_OK)
+        data ={"available_times": [t.strftime("%H:%M") for t in available_times]}
+        print(data)
+        if data["available_times"] == []:
+            data = {"available_times":["no time available"]}
+            return JsonResponse(data, status=status.HTTP_200_OK)
+        else:
+            return JsonResponse(data, status=status.HTTP_200_OK)

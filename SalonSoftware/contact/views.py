@@ -32,7 +32,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 return redirect(
-                    "UserHomePage"
+                    "salon"
                 )  # Redirect to a profile or another page after login
     else:
         form = AuthenticationForm()
@@ -43,4 +43,4 @@ def login_view(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect("UserHomePage")  # Redirect to login page or home page after logout
+    return redirect("salon")  # Redirect to login page or home page after logout
